@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-register',
@@ -12,27 +13,37 @@ export class RegisterComponent {
 
   userData: any = {
     afm: '',
+    email: '',
     password: '',
     name: '',
     surname: '',
     shopName: ''
   };
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private notify: NotificationService) {}
 
-register() {
-  const dataToSend = { ...this.userData };
+  register() {  
+    let finalData: any = {
+      afm: this.userData.afm,
+      email: this.userData.email,
+      password: this.userData.password,
+      role: this.userType 
+    };
 
-  this.authService.register(dataToSend, this.userType).subscribe({
-    next: (response) => {
-      console.log('Εγγραφή οκ!', response);
-      alert('Η εγγραφή ολοκληρώθηκε! Τώρα μπορείτε να συνδεθείτε.');
-      this.router.navigate(['/login']); 
-    },
-    error: (err) => {
-      console.error('Σφάλμα εγγραφής', err);
-      alert('Κάτι πήγε λάθος: ' + (err.error.message || 'Προσπαθήστε ξανά'));
+    if (this.userType === 'CITIZEN') {
+      finalData.name = this.userData.name;
+      finalData.surname = this.userData.surname;
+    } else if (this.userType === 'SHOP') {
+      finalData.shopName = this.userData.shopName;
     }
-  });
-}
+    this.authService.register(this.userData, this.userType).subscribe({
+      next: (res) => {
+        this.notify.showSuccess('Η εγγραφή ολοκληρώθηκε με επιτυχία!'); 
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.notify.showError('Σφάλμα: ' + (err.error.message || 'Αποτυχία εγγραφής')); 
+      }
+    });
+  }
 }

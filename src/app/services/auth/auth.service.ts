@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class AuthService {
   // Η διεύθυνση του Spring Boot API σου
-  private baseUrl = 'http://localhost:8080/api/auth';
+  private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 

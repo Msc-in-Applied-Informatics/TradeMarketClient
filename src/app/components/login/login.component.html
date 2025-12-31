@@ -2,36 +2,41 @@
   <mat-card class="auth-card">
     <mat-card-header>
       <mat-card-title>Σύνδεση Χρήστη</mat-card-title>
-      <mat-card-subtitle>Εισάγετε τα διαπιστευτήριά σας</mat-card-subtitle>
+      <mat-card-subtitle>Εισάγετε τα στοιχεία σας για να συνεχίσετε</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <div class="auth-form">
+      <form #loginForm="ngForm" class="auth-form">
         
         <mat-form-field appearance="outline">
           <mat-label>ΑΦΜ</mat-label>
-          <input matInput [(ngModel)]="loginData.afm" name="afm" placeholder="π.χ. 098765432" required>
+          <input matInput [(ngModel)]="loginData.username" name="username" 
+                 required minlength="9" maxlength="9" #afmModel="ngModel">
           <mat-icon matSuffix>badge</mat-icon>
-          <mat-hint>Το ΑΦΜ που χρησιμοποιήσατε στην εγγραφή</mat-hint>
+          <mat-error *ngIf="afmModel.invalid && afmModel.touched">
+            Το ΑΦΜ πρέπει να είναι 9 ψηφία
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>Κωδικός Πρόσβασης</mat-label>
-          <input matInput [type]="hide ? 'password' : 'text'" [(ngModel)]="loginData.password" name="password" placeholder="Εισάγετε κωδικό">
-          <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+          <input matInput [type]="hide ? 'password' : 'text'" 
+                 [(ngModel)]="loginData.password" name="password" required>
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" class="auth-button" (click)="onLogin()">
+        <button mat-raised-button color="primary" class="auth-button" 
+                [disabled]="loginForm.invalid" (click)="onLogin()">
           ΕΙΣΟΔΟΣ
         </button>
-      </div>
+      </form>
     </mat-card-content>
 
     <mat-card-footer>
       <div class="auth-footer-text">
-        Δεν έχετε λογαριασμό; <a routerLink="/register">Δημιουργήστε έναν τώρα</a>
+        Δεν έχετε λογαριασμό; <a routerLink="/register">Εγγραφείτε εδώ</a>
       </div>
     </mat-card-footer>
   </mat-card>

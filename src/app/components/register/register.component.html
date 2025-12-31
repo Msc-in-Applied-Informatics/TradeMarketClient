@@ -2,60 +2,64 @@
   <mat-card class="auth-card">
     <mat-card-header>
       <mat-card-title>Εγγραφή Χρήστη</mat-card-title>
-      <mat-card-subtitle>Συμπληρώστε τα στοιχεία σας</mat-card-subtitle>
     </mat-card-header>
 
     <mat-card-content>
-      <div class="auth-form">
+      <form #registerForm="ngForm" class="auth-form">
         
         <mat-form-field appearance="outline">
-          <mat-label>Είμαι...</mat-label>
-          <mat-select [(ngModel)]="userType" name="userType">
+          <mat-label>Εγγραφή ως...</mat-label>
+          <mat-select [(ngModel)]="userType" name="userType" required>
             <mat-option value="CITIZEN">Πολίτης</mat-option>
             <mat-option value="SHOP">Μαγαζί</mat-option>
           </mat-select>
-          <mat-icon matSuffix>supervised_user_circle</mat-icon>
-          <mat-hint>Επιλέξτε την ιδιότητά σας</mat-hint>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" [(ngModel)]="userData.email" name="email" 
+                 required email #emailModel="ngModel" placeholder="example@mail.com">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-error *ngIf="emailModel.invalid && emailModel.touched">
+            Παρακαλώ εισάγετε ένα έγκυρο email
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field appearance="outline">
           <mat-label>ΑΦΜ</mat-label>
-          <input matInput [(ngModel)]="userData.afm" name="afm" placeholder="π.χ. 012345678" required>
-          <mat-icon matSuffix>fingerprint</mat-icon>
+          <input matInput [(ngModel)]="userData.afm" name="afm" required minlength="9" maxlength="9">
+          <mat-icon matSuffix>badge</mat-icon>
         </mat-form-field>
 
         <ng-container *ngIf="userType === 'CITIZEN'">
           <mat-form-field appearance="outline">
             <mat-label>Όνομα</mat-label>
-            <input matInput [(ngModel)]="userData.name" name="name" placeholder="Το όνομά σας">
-            <mat-icon matSuffix>person</mat-icon>
+            <input matInput [(ngModel)]="userData.name" name="name" required>
           </mat-form-field>
-          
           <mat-form-field appearance="outline">
             <mat-label>Επώνυμο</mat-label>
-            <input matInput [(ngModel)]="userData.surname" name="surname" placeholder="Το επώνυμό σας">
-            <mat-icon matSuffix>groups</mat-icon>
+            <input matInput [(ngModel)]="userData.surname" name="surname" required>
           </mat-form-field>
         </ng-container>
 
         <ng-container *ngIf="userType === 'SHOP'">
           <mat-form-field appearance="outline">
             <mat-label>Επωνυμία Μαγαζιού</mat-label>
-            <input matInput [(ngModel)]="userData.shopName" name="shopName" placeholder="π.χ. My Super Market">
-            <mat-icon matSuffix>store</mat-icon>
+            <input matInput [(ngModel)]="userData.shopName" name="shopName" required>
           </mat-form-field>
         </ng-container>
 
         <mat-form-field appearance="outline">
           <mat-label>Κωδικός Πρόσβασης</mat-label>
-          <input matInput type="password" [(ngModel)]="userData.password" name="password" placeholder="Εισάγετε κωδικό">
-          <mat-icon matSuffix>vpn_key</mat-icon>
+          <input matInput type="password" [(ngModel)]="userData.password" name="password" required minlength="6">
+          <mat-icon matSuffix>lock</mat-icon>
         </mat-form-field>
 
-        <button mat-raised-button color="primary" class="auth-button" (click)="register()">
+        <button mat-raised-button color="primary" class="auth-button" 
+                [disabled]="registerForm.invalid" (click)="register()">
           ΔΗΜΙΟΥΡΓΙΑ ΛΟΓΑΡΙΑΣΜΟΥ
         </button>
-      </div>
+      </form>
     </mat-card-content>
 
     <mat-card-footer>
