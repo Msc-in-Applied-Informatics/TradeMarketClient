@@ -11,9 +11,10 @@ import { ProductListComponent } from './components/citizen/product-list/product-
 import { CartComponent } from './components/citizen/cart/cart.component';
 import { DashboardComponent } from './components/store/dashboard/dashboard.component';
 import { AddProductComponent } from './components/store/add-product/add-product.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,13 @@ import { MaterialModule } from './material.module';
     BrowserAnimationsModule,
     MaterialModule
   ],
-  providers: [],
+providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true 
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

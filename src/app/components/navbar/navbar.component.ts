@@ -16,9 +16,11 @@ displayName: string = '';
 
   ngOnInit(): void {
     this.authService.user$.subscribe({
-    next: (user) => {
-      this.userRole = user.role;
-      this.displayName = (this.userRole === 'SHOP') ? user.name : `${user.name} ${user.surname}`;
+      next: (user) => {
+        if (user){
+          this.userRole = user.role;
+          this.displayName = (this.userRole === 'SHOP') ? user.name : `${user.name} ${user.surname}`;
+        }
     },
     error: (err) => {
       this.notify.showError('Σφάλμα: ' + (err.error.message || 'User not found')); 
@@ -27,7 +29,14 @@ displayName: string = '';
   }
 
   logout() {
-    this.authService.logout();
-    this.router.navigate(['/login']);
+    this.authService.logout().subscribe({
+      next: () => {
+        this.router.navigate(['/login']);
+      },
+      error: (err) => {
+        this.router.navigate(['/login']);
+      }
+    })
+    
   }
 }

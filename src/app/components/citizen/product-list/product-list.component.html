@@ -1,1 +1,33 @@
-<p>product-list works!</p>
+<div class="container">
+  <h1 class="page-title">Διαθέσιμα Προϊόντα</h1>
+
+  <div class="product-grid">
+    <mat-card class="product-card" *ngFor="let product of products">
+      <div class="product-icon-container">
+        <mat-icon>inventory_2</mat-icon>
+      </div>
+      
+      <mat-card-content>
+        <div class="brand-label">{{product.brand}}</div>
+        <mat-card-title>{{product.type}}</mat-card-title>
+        
+        <p class="description">{{product.description}}</p>
+        
+        <div class="info-row">
+          <span class="price">{{product.price}} €</span>
+          <span class="stock" [class.low-stock]="product.stock < 5">
+            Απόθεμα: {{product.stock}}
+          </span>
+        </div>
+
+        <p class="shop-id">
+          <mat-icon>store</mat-icon> Μαγαζί: {{product.shopName}}
+        </p>
+      </mat-card-content>
+
+      <mat-card-actions>
+        <button mat-raised-button color="primary">ΑΓΟΡΑ</button>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
