@@ -13,7 +13,7 @@
         <mat-form-field appearance="outline">
           <mat-label>ΑΦΜ</mat-label>
           <input matInput [(ngModel)]="loginData.username" name="username" 
-                 required minlength="9" maxlength="9" #afmModel="ngModel">
+                 required minlength="4" maxlength="9" #afmModel="ngModel">
           <mat-icon matSuffix>badge</mat-icon>
           <mat-error *ngIf="afmModel.invalid && afmModel.touched">
             Το ΑΦΜ πρέπει να είναι 9 ψηφία

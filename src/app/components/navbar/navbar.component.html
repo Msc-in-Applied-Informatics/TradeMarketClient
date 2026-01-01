@@ -1,1 +1,29 @@
-<p>navbar works!</p>
+<mat-toolbar color="primary" class="main-navbar">
+  <div class="nav-container">
+    
+    <div class="logo-section" routerLink="/products">
+      <img src="assets/images/mini-logo.png" alt="TradeMarket Logo" class="logo-img">
+    </div>
+
+    <span class="spacer"></span>
+
+    <div class="nav-links">
+      <button mat-button routerLink="/products">
+        <mat-icon>store</mat-icon> Προϊόντα
+      </button>
+
+      <div class="profile-info">
+        <span class="user-name">{{ displayName }}</span>
+        
+        <mat-icon class="role-icon" [matTooltip]="userRole === 'SHOP' ? 'Κατάστημα' : 'Πολίτης'">
+          {{ userRole === 'SHOP' ? 'storefront' : 'person' }}
+        </mat-icon>
+      </div>
+
+      <button mat-icon-button (click)="logout()" matTooltip="Αποσύνδεση">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </div>
+
+  </div>
+</mat-toolbar>

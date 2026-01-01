@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
   selector: 'app-login',
@@ -15,23 +16,24 @@ export class LoginComponent {
 
   hide = true; 
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private authService: AuthService, private router: Router, private notify: NotificationService) {}
 
   onLogin() {
-   this.authService.login(this.loginData).subscribe({
-    next: (response) => {
-      this.authService.setUser(response); 
-      console.log('Σύνδεση επιτυχής!', response);
-      
-      if (response.role === 'SHOP') {
-        this.router.navigate(['/shop-admin']);
-      } else {
-        this.router.navigate(['/products']);
+    this.authService.login(this.loginData).subscribe({
+      next: (response) => {
+          this.authService.setUser(response.data); 
+          this.notify.showSuccess('Σύνδεση επιτυχής!'); 
+          console.log('Σύνδεση επιτυχής!', response);
+        
+        if (response.role === 'SHOP') {
+          this.router.navigate(['/shop-admin']);
+        } else {
+          this.router.navigate(['/products']);
+        }
+      },
+      error: (err) => {
+        this.notify.showError('Σφάλμα: ' + 'Λάθος ΑΦΜ ή Κωδικός');
       }
-    },
-    error: (err) => {
-      alert('Λάθος ΑΦΜ ή Κωδικός');
-    }
-  });
+    });
   }
 }
