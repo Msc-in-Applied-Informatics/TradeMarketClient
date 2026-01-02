@@ -8,17 +8,17 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductListComponent } from './components/citizen/product-list/product-list.component';
-import { CartComponent } from './components/citizen/cart/cart.component';
 import { DashboardComponent } from './components/store/dashboard/dashboard.component';
 import { AddProductComponent } from './components/store/add-product/add-product.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
-import { CartDialogComponent } from './components/cart-dialog/cart-dialog.component';
-import { CartFabComponent } from './components/cart-fab/cart-fab.component';
-import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
+import { CartDialogComponent } from './components/citizen/cart-dialog/cart-dialog.component';
+import { CartFabComponent } from './components/citizen/cart-fab/cart-fab.component';
+import { PaymentDialogComponent } from './components/citizen/payment-dialog/payment-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { ProductFilterComponent } from './components/citizen/product-filter/product-filter.component';
 
 @NgModule({
   declarations: [
@@ -27,12 +27,12 @@ import { ReactiveFormsModule } from '@angular/forms';
     RegisterComponent,
     NavbarComponent,
     ProductListComponent,
-    CartComponent,
     DashboardComponent,
     AddProductComponent,
     CartDialogComponent,
     CartFabComponent,
-    PaymentDialogComponent
+    PaymentDialogComponent,
+    ProductFilterComponent
   ],
   imports: [
     BrowserModule,
