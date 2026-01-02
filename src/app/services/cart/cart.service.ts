@@ -38,8 +38,6 @@ getCart(afm: string): Observable<any> {
   }
 
   addToCart(product: Product):  Observable<any> {
-    console.log(this.auth.getUser());
-    console.log(product.id);
     const params = {
       productId: product.id,
       afm: this.auth.getUser()?.afm

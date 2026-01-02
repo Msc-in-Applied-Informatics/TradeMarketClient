@@ -1,0 +1,31 @@
+.filter-card {
+  margin-bottom: 30px;
+  padding: 20px;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05) !important;
+}
+
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  align-items: center;
+
+  mat-form-field {
+    flex: 1;
+    min-width: 150px;  
+  }
+
+  .filter-actions {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;  
+
+    button {
+      padding: 0 20px;
+      height: 48px;  
+      border-radius: 8px;
+    }
+  }
+}

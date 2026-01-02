@@ -24,7 +24,6 @@ export class LoginComponent {
       next: (response) => {
           this.authService.setUser(response.data); 
           this.notify.showSuccess('Σύνδεση επιτυχής!'); 
-          console.log('Σύνδεση επιτυχής!', response);
         
         if (response.role === 'SHOP') {
           this.router.navigate(['/shop-admin']);

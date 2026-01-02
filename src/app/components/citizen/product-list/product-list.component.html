@@ -1,7 +1,27 @@
 <div class="container">
   <h1 class="page-title">Διαθέσιμα Προϊόντα</h1>
+  
+  <div class="filter-wrapper">
+    <app-product-filter 
+      [allProducts]="allProductsForFilter" 
+      (filterChanged)="onFilterChange($event)">
+    </app-product-filter>
+  </div>
 
-  <div class="product-grid">
+  <div class="loading-container">
+    <mat-progress-spinner
+      *ngIf="isLoading" 
+      mode="indeterminate" 
+      color="primary">
+    </mat-progress-spinner>
+  </div>
+
+  <div *ngIf="products.length === 0" class="no-results">
+    <mat-icon>search_off</mat-icon>
+    <p>Δεν βρέθηκαν προϊόντα με αυτά τα κριτήρια.</p>
+  </div>
+
+  <div class="product-grid" *ngIf="products.length > 0">
     <mat-card class="product-card" *ngFor="let product of products">
       <div class="product-icon-container">
         <mat-icon>inventory_2</mat-icon>
@@ -14,9 +34,9 @@
         <p class="description">{{product.description}}</p>
         
         <div class="info-row">
-          <span class="price">{{product.price}} €</span>
-          <span class="stock" [class.low-stock]="product.stock < 5">
-            Απόθεμα: {{product.stock}}
+          <span class="price">{{product.price | number:'1.2-2'}} €</span>
+          <span class="stock" [class.low-stock]="product.stock < 5" [class.no-stock]="product.stock === 0">
+            {{ product.stock === 0 ? 'Εξαντλήθηκε' : 'Απόθεμα: ' + product.stock }}
           </span>
         </div>
 
@@ -26,10 +46,12 @@
       </mat-card-content>
 
       <mat-card-actions>
-        <button mat-raised-button color="warn" (click)="addToCart(product)"><mat-icon>shopping_cart</mat-icon> Καλάθι</button>
+        <button mat-raised-button color="warn" 
+                (click)="addToCart(product)" 
+                [disabled]="product.stock === 0">
+          <mat-icon>shopping_cart</mat-icon> {{ product.stock === 0 ? 'Μη Διαθέσιμο' : 'Καλάθι' }}
+        </button>
       </mat-card-actions>
     </mat-card>
-
-       
   </div>
 </div>

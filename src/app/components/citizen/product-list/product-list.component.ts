@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core'; // Προσθήκη OnInit
 import { Product } from 'src/app/models/models';
 import { CartService } from 'src/app/services/cart/cart.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
@@ -9,17 +9,45 @@ import { ProductService } from 'src/app/services/product/product.service';
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.less']
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit {
 
-  products: Product[] = [];
+  products: Product[] = []; 
+  allProductsForFilter: Product[] = []; 
+  isLoading = false;
 
-  constructor(private productService: ProductService, private notify: NotificationService, private cartService: CartService) {}
+  constructor(
+    private productService: ProductService, 
+    private notify: NotificationService, 
+    private cartService: CartService
+  ) {}
 
   ngOnInit(): void {
+    this.loadInitialProducts();
+  }
+
+  loadInitialProducts() {
     this.productService.getAllProducts().subscribe({
-      next: (response) => this.products = response.data,
+      next: (response) => {
+        this.products = response.data;
+        this.allProductsForFilter = [...response.data]; 
+      },
       error: (err) => {
-        this.notify.showError('Σφάλμα: ' + (err.error.message || 'κατά τη φόρτωση των προϊόντων')); 
+        this.notify.showError('Σφάλμα: ' + (err.error?.message || 'κατά τη φόρτωση των προϊόντων')); 
+      } 
+    });
+  }
+
+  onFilterChange(filters: any) {
+    this.isLoading = true
+    this.productService.getFilteredProducts(filters).subscribe({
+      next: (response) => {
+        this.products = response.data;
+        setTimeout(() => {          
+          this.isLoading = false;
+        }, 300);
+      },
+      error: (err) => {
+        this.notify.showError('Σφάλμα: ' + (err.error?.message || 'κατά την αναζήτηση των προϊόντων')); 
       } 
     });
   }
@@ -31,8 +59,8 @@ export class ProductListComponent {
         this.cartService.increaseCount();
       },
       error: (err) => {
-        this.notify.showError('Σφάλμα: ' + (err.error.message || 'κατά τη προσθήκη των προϊόντων στο καλάθι')); 
+        this.notify.showError('Σφάλμα: ' + (err.error?.message || 'κατά τη προσθήκη στο καλάθι')); 
       }
-    })
+    });
   }
 }
