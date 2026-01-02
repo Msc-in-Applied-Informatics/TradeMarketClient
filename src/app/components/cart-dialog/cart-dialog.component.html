@@ -1,0 +1,66 @@
+<h2 mat-dialog-title class="dialog-title">
+  <mat-icon>shopping_basket</mat-icon> Το Καλάθι μου
+</h2>
+
+<mat-dialog-content class="cart-content">
+  <div *ngIf="isLoading" class="loading-container">
+    <mat-spinner diameter="40"></mat-spinner>
+  </div>
+
+  <div *ngIf="!isLoading && cartItems.length === 0" class="empty-cart">
+    <mat-icon>remove_shopping_cart</mat-icon>
+    <p>Το καλάθι σας είναι άδειο!</p>
+  </div>
+
+  <mat-list *ngIf="!isLoading && cartItems.length > 0">
+    <div *ngFor="let item of cartItems; let last = last">
+      <mat-list-item class="cart-item">
+        <mat-icon mat-list-icon color="primary">inventory_2</mat-icon>
+        
+        <div mat-line class="product-header">
+          <span class="product-name">{{item.brand}} {{item.type}}</span>
+        </div>
+        
+        <div mat-line class="product-desc">{{item.description}}</div>
+        
+        <div class="quantity-controls">
+          <button mat-icon-button color="warn" (click)="removeFromCart(item)" [disabled]="isLoading">
+            <mat-icon>remove_circle_outline</mat-icon>
+          </button>
+          
+          <span class="quantity-value">{{item.quantity}}</span>
+          
+          <button mat-icon-button color="primary" (click)="addToCart(item)" [disabled]="isLoading">
+            <mat-icon>add_circle_outline</mat-icon>
+          </button>
+        </div>
+
+        <div class="price-container">
+          <span class="unit-price" *ngIf="item.quantity > 1">
+            ({{item.price | number:'1.2-2'}} € / τμχ)
+          </span>
+          <span class="total-item-price">
+            {{ (item.price * item.quantity) | number:'1.2-2' }} €
+          </span>
+        </div>
+      </mat-list-item>
+      <mat-divider *ngIf="!last"></mat-divider>
+    </div>
+  </mat-list>
+</mat-dialog-content>
+
+<div class="cart-footer" *ngIf="cartItems.length > 0">
+  <div class="total-price">
+    <span>Σύνολο:</span>
+    <strong>{{totalPrice | number:'1.2-2'}} €</strong>
+  </div>
+</div>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="close()">ΑΚΥΡΟ</button>
+  <button mat-raised-button color="primary" 
+          [disabled]="cartItems.length === 0 || isLoading" 
+          (click)="openPayment()">
+    ΟΛΟΚΛΗΡΩΣΗ ΑΓΟΡΑΣ
+  </button>
+</mat-dialog-actions>

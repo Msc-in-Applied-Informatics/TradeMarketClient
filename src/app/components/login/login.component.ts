@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { CartService } from 'src/app/services/cart/cart.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
@@ -16,7 +17,7 @@ export class LoginComponent {
 
   hide = true; 
 
-  constructor(private authService: AuthService, private router: Router, private notify: NotificationService) {}
+  constructor(private authService: AuthService, private router: Router, private notify: NotificationService, private cartService: CartService) {}
 
   onLogin() {
     this.authService.login(this.loginData).subscribe({
@@ -28,7 +29,11 @@ export class LoginComponent {
         if (response.role === 'SHOP') {
           this.router.navigate(['/shop-admin']);
         } else {
-          this.router.navigate(['/products']);
+          this.cartService.getCart(this.authService.getUser()?.afm).subscribe({
+            next: () => {
+              this.router.navigate(['/products']);
+            }
+          });
         }
       },
       error: (err) => {

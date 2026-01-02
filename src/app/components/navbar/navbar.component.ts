@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { CartService } from 'src/app/services/cart/cart.service';
 import { NotificationService } from 'src/app/services/notification/notification.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class NavbarComponent implements OnInit {
 displayName: string = '';
   userRole: string = '';
 
-  constructor(private authService: AuthService, private router: Router, private notify: NotificationService) {}
+  constructor(private authService: AuthService, private router: Router, private notify: NotificationService, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe({
@@ -31,6 +32,7 @@ displayName: string = '';
   logout() {
     this.authService.logout().subscribe({
       next: () => {
+        this.cartService.clearCartState();
         this.router.navigate(['/login']);
       },
       error: (err) => {

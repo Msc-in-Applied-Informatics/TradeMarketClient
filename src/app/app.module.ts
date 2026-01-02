@@ -15,6 +15,9 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { CartDialogComponent } from './components/cart-dialog/cart-dialog.component';
+import { CartFabComponent } from './components/cart-fab/cart-fab.component';
+import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,10 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     ProductListComponent,
     CartComponent,
     DashboardComponent,
-    AddProductComponent
+    AddProductComponent,
+    CartDialogComponent,
+    CartFabComponent,
+    PaymentDialogComponent
   ],
   imports: [
     BrowserModule,

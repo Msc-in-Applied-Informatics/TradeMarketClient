@@ -1,0 +1,43 @@
+<h2 mat-dialog-title>
+  <mat-icon>security</mat-icon> Ασφαλής Πληρωμή
+</h2>
+
+<mat-dialog-content>
+  <div class="payment-card-form">
+    <div class="total-banner">
+      Ποσό Πληρωμής: <strong>{{data.totalPrice | number:'1.2-2'}} €</strong>
+    </div>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Ονοματεπώνυμο Κατόχου</mat-label>
+      <input matInput placeholder="π.χ. NIKOLAOS PAPAS">
+    </mat-form-field>
+
+    <mat-form-field appearance="outline" class="full-width">
+      <mat-label>Αριθμός Κάρτας</mat-label>
+      <input matInput placeholder="4242 4242 4242 4242" maxlength="16">
+      <mat-icon matSuffix>credit_card</mat-icon>
+    </mat-form-field>
+
+    <div class="card-extra-info">
+      <mat-form-field appearance="outline">
+        <mat-label>Λήξη (MM/YY)</mat-label>
+        <input matInput placeholder="12/28">
+      </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+        <mat-label>CVV</mat-label>
+        <input matInput placeholder="123" maxlength="3">
+      </mat-form-field>
+    </div>
+  </div>
+  
+  <mat-progress-spinner mode="indeterminate" *ngIf="isLoading"></mat-progress-spinner>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close [disabled]="isLoading">ΑΚΥΡΟ</button>
+  <button mat-raised-button color="accent" (click)="confirmPayment()" [disabled]="isLoading">
+    ΠΛΗΡΩΜΗ ΤΩΡΑ
+  </button>
+</mat-dialog-actions>
