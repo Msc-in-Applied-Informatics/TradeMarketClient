@@ -3,41 +3,50 @@
 </h2>
 
 <mat-dialog-content>
-  <div class="payment-card-form">
+  <form [formGroup]="paymentForm" class="payment-card-form">
+    
     <div class="total-banner">
       Ποσό Πληρωμής: <strong>{{data.totalPrice | number:'1.2-2'}} €</strong>
     </div>
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Ονοματεπώνυμο Κατόχου</mat-label>
-      <input matInput placeholder="π.χ. NIKOLAOS PAPAS">
+      <input matInput formControlName="cardHolder" placeholder="π.χ. NIKOLAOS PAPAS">
+      <mat-error *ngIf="f['cardHolder'].hasError('required')">Το ονοματεπώνυμο είναι υποχρεωτικό</mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" class="full-width">
       <mat-label>Αριθμός Κάρτας</mat-label>
-      <input matInput placeholder="4242 4242 4242 4242" maxlength="16">
+      <input matInput formControlName="cardNumber" placeholder="4242 4242 4242 4242" maxlength="16">
       <mat-icon matSuffix>credit_card</mat-icon>
+      <mat-error *ngIf="f['cardNumber'].hasError('required')">Ο αριθμός κάρτας είναι υποχρεωτικός</mat-error>
+      <mat-error *ngIf="f['cardNumber'].hasError('pattern')">Εισάγετε 16 ψηφία</mat-error>
     </mat-form-field>
 
     <div class="card-extra-info">
       <mat-form-field appearance="outline">
         <mat-label>Λήξη (MM/YY)</mat-label>
-        <input matInput placeholder="12/28">
+        <input matInput formControlName="expiry" placeholder="MM/YY" maxlength="5">
+        <mat-error *ngIf="f['expiry'].invalid && f['expiry'].touched">Μορφή MM/YY</mat-error>
       </mat-form-field>
       
       <mat-form-field appearance="outline">
         <mat-label>CVV</mat-label>
-        <input matInput placeholder="123" maxlength="3">
+        <input matInput formControlName="cvv" placeholder="123" maxlength="4">
+        <mat-icon matSuffix matTooltip="Ο 3ψήφιος κωδικός στο πίσω μέρος">help_outline</mat-icon>
+        <mat-error *ngIf="f['cvv'].invalid && f['cvv'].touched">3 ψηφία</mat-error>
       </mat-form-field>
     </div>
-  </div>
+  </form>
   
   <mat-progress-spinner mode="indeterminate" *ngIf="isLoading"></mat-progress-spinner>
 </mat-dialog-content>
 
 <mat-dialog-actions align="end">
   <button mat-button mat-dialog-close [disabled]="isLoading">ΑΚΥΡΟ</button>
-  <button mat-raised-button color="accent" (click)="confirmPayment()" [disabled]="isLoading">
+  <button mat-raised-button color="accent" 
+          (click)="confirmPayment()" 
+          [disabled]="paymentForm.invalid || isLoading">
     ΠΛΗΡΩΜΗ ΤΩΡΑ
   </button>
 </mat-dialog-actions>

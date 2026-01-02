@@ -18,6 +18,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { CartDialogComponent } from './components/cart-dialog/cart-dialog.component';
 import { CartFabComponent } from './components/cart-fab/cart-fab.component';
 import { PaymentDialogComponent } from './components/payment-dialog/payment-dialog.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { PaymentDialogComponent } from './components/payment-dialog/payment-dial
     FormsModule,
     HttpClientModule,
     BrowserAnimationsModule,
-    MaterialModule
+    MaterialModule,
+    ReactiveFormsModule
   ],
 providers: [
     {
