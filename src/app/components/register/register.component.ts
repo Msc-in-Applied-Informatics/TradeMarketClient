@@ -34,9 +34,10 @@ export class RegisterComponent {
       finalData.name = this.userData.name;
       finalData.surname = this.userData.surname;
     } else if (this.userType === 'SHOP') {
-      finalData.shopName = this.userData.shopName;
+      finalData.name = this.userData.shopName;
+      finalData.owner = this.userData.name
     }
-    this.authService.register(this.userData, this.userType).subscribe({
+    this.authService.register(finalData, this.userType).subscribe({
       next: (res) => {
         this.notify.showSuccess('Η εγγραφή ολοκληρώθηκε με επιτυχία!'); 
         this.router.navigate(['/login']);
