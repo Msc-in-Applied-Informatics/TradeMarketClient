@@ -14,12 +14,14 @@ export class CartFabComponent {
   constructor(private cartService: CartService, private dialog: MatDialog, private auth: AuthService) {}
 
   ngOnInit(): void {
-    this.cartService.cartCount$.subscribe(count => {
-      this.cartCount = count;
-    });
+    if (this.auth.getUser()?.role === "CITIZEN") {
+      this.cartService.cartCount$.subscribe(count => {
+        this.cartCount = count;
+      });
     
-    if (this.auth.getUser()?.afm) {
-      this.cartService.getCart(this.auth.getUser()?.afm).subscribe(); 
+      if (this.auth.getUser()?.afm) {
+        this.cartService.getCart(this.auth.getUser()?.afm).subscribe();
+      }
     }
   }
 

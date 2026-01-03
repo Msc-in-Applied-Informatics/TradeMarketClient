@@ -18,6 +18,14 @@
     </mat-form-field>
 
     <mat-form-field appearance="outline">
+      <mat-label>Κατάστημα</mat-label>
+      <mat-select formControlName="shopName">
+        <mat-option [value]="">Όλα</mat-option>
+        <mat-option *ngFor="let s of filteredShops" [value]="s">{{s}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
       <mat-label>Min Τιμή (€)</mat-label>
       <input matInput type="number" formControlName="minPrice" placeholder="0">
     </mat-form-field>

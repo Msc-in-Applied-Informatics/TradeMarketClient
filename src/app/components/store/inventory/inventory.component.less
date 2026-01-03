@@ -1,0 +1,109 @@
+.inventory-dashboard {
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  .inventory-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+
+    h1 { margin: 0; font-size: 28px; font-weight: 700; color: #333; }
+    .subtitle { color: #666; margin: 5px 0 0; }
+    
+    .add-btn {
+      padding: 0 24px;
+      height: 48px;
+      font-size: 16px;
+      border-radius: 8px;
+      mat-icon { margin-right: 8px; }
+    }
+  }
+
+  .mdc-data-table__cell, .mdc-data-table__header-cell{
+    text-align: center;
+  }
+
+  .content-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .table-container {
+    position: relative;
+    min-height: 300px;
+
+    table { width: 100%; }
+
+    .inventory-row {
+      transition: background 0.2s;
+      &:hover { background-color: #f9f9f9; }
+    }
+  }
+
+  // Stock Badges
+  .stock-badge {
+    padding: 6px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    text-transform: uppercase;
+
+    &.critical { background: #ffebee; color: #d32f2f; border: 1px solid #ffcdd2; }
+    &.low { background: #fff3e0; color: #ef6c00; border: 1px solid #ffe0b2; }
+    &.ok { background: #e8f5e9; color: #2e7d32; border: 1px solid #c8e6c9; }
+  }
+
+  .action-buttons {
+    display: flex;
+    gap: 8px;
+    justify-content: center;
+    
+    .edit-btn { color: #3f51b5; }
+    .delete-btn { color: #f44336; }
+  }
+
+  .empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    color: #999;
+
+    mat-icon { font-size: 64px; width: 64px; height: 64px; margin-bottom: 16px; }
+    h3 { color: #333; margin-bottom: 8px; }
+    p { margin-bottom: 24px; }
+  }
+
+  .loading-shade {
+    display: flex;
+    justify-content: center;
+    padding: 100px 0;
+  }
+}
+
+.inventory-row {
+  transition: all 0.3s ease;
+
+  &.is-inactive {
+    background-color: #f5f5f5; 
+    opacity: 0.6;             
+    filter: grayscale(0.8);   
+    
+    td {
+      color: #888;            
+    }
+
+    .stock-badge {
+      filter: none;            
+      opacity: 0.5;
+    }
+  }
+}
+
+.restore-btn {
+  color: #4caf50; 
+  &:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+  }
+}

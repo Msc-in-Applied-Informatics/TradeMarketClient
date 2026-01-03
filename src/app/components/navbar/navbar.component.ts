@@ -13,7 +13,7 @@ export class NavbarComponent implements OnInit {
 displayName: string = '';
   userRole: string = '';
 
-  constructor(private authService: AuthService, private router: Router, private notify: NotificationService, private cartService: CartService) {}
+  constructor(public authService: AuthService, private router: Router, private notify: NotificationService, private cartService: CartService) {}
 
   ngOnInit(): void {
     this.authService.user$.subscribe({

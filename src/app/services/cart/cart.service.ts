@@ -24,7 +24,7 @@ export class CartService {
     return this.http.post(`${this.apiUrl}/cart/checkout`, {afm: afm}, { withCredentials: true });
   }
 
-getCart(afm: string): Observable<any> {
+  getCart(afm: string): Observable<any> {
     return this.http.get(`${this.apiUrl}/cart/my-cart/${afm}`).pipe(
       tap((res: any) => {
         if (res && res.data && res.data.products) {

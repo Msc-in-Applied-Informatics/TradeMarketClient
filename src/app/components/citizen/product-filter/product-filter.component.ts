@@ -14,6 +14,7 @@ export class ProductFilterComponent implements OnInit, OnChanges { // Υλοπο
   filterForm!: FormGroup;
   filteredTypes: string[] = [];
   filteredBrands: string[] = [];
+  filteredShops: string[] = [];
   
 
   constructor(private fb: FormBuilder) {}
@@ -29,32 +30,40 @@ export class ProductFilterComponent implements OnInit, OnChanges { // Υλοπο
       type: [''],
       brand: [''],
       minPrice: [null],
-      maxPrice: [null]
+      maxPrice: [null],
+      shopName: ['']
     });
 
     this.filterForm.get('type')?.valueChanges.subscribe(() => this.updateDropdowns());
     this.filterForm.get('brand')?.valueChanges.subscribe(() => this.updateDropdowns());
+    this.filterForm.get('shopName')?.valueChanges.subscribe(() => this.updateDropdowns());
   }
 
   updateDropdowns() {
     if (!this.allProducts || this.allProducts.length === 0) return;
 
+    
     const selectedType = this.filterForm.get('type')?.value;
     const selectedBrand = this.filterForm.get('brand')?.value;
+    const selectedShop = this.filterForm.get('shopName')?.value;
 
-
+    
     let typeData = this.allProducts;
-    if (selectedBrand) {
-      typeData = typeData.filter(p => p.brand === selectedBrand);
-    }
+    if (selectedBrand) typeData = typeData.filter(p => p.brand === selectedBrand);
+    if (selectedShop)  typeData = typeData.filter(p => p.shopName === selectedShop);
     this.filteredTypes = [...new Set(typeData.map(p => p.type))].sort();
 
-
+    
     let brandData = this.allProducts;
-    if (selectedType) {
-      brandData = brandData.filter(p => p.type === selectedType);
-    }
+    if (selectedType)  brandData = brandData.filter(p => p.type === selectedType);
+    if (selectedShop)  brandData = brandData.filter(p => p.shopName === selectedShop);
     this.filteredBrands = [...new Set(brandData.map(p => p.brand))].sort();
+
+     
+    let shopData = this.allProducts;
+    if (selectedType)  shopData = shopData.filter(p => p.type === selectedType);
+    if (selectedBrand) shopData = shopData.filter(p => p.brand === selectedBrand);
+    this.filteredShops = [...new Set(shopData.map(p => p.shopName))].sort();
   }
 
   applyFilters() {
@@ -66,7 +75,8 @@ export class ProductFilterComponent implements OnInit, OnChanges { // Υλοπο
       type: '',
       brand: '',
       minPrice: null,
-      maxPrice: null
+      maxPrice: null,
+      shopName : ''
     });
     this.updateDropdowns();
     this.filterChanged.emit(this.filterForm.value); 

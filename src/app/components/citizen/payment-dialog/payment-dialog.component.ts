@@ -26,9 +26,9 @@ export class PaymentDialogComponent implements OnInit {
   ngOnInit(): void {
     this.paymentForm = this.fb.group({
       cardHolder: ['ΓΕΩΡΓΙΟΣ ΠΑΠΑΔΟΠΟΥΛΟΣ', [Validators.required, Validators.minLength(3)]],
-      cardNumber: ['4242424242424242', [Validators.required, Validators.pattern('^[0-9]{16}$')]], // Μόνο 16 ψηφία
-      expiry: ['12/30', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/?([0-9]{2})$')]], // MM/YY format
-      cvv: ['123', [Validators.required, Validators.pattern('^[0-9]{3,4}$')]] // 3 ή 4 ψηφία
+      cardNumber: ['4242424242424242', [Validators.required, Validators.pattern('^[0-9]{16}$')]],  
+      expiry: ['12/30', [Validators.required, Validators.pattern('^(0[1-9]|1[0-2])\/?([0-9]{2})$')]],  
+      cvv: ['123', [Validators.required, Validators.pattern('^[0-9]{3,4}$')]]  
     });
   }
 

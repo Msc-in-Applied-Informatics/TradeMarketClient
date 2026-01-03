@@ -26,7 +26,7 @@ export class LoginComponent {
           this.notify.showSuccess('Σύνδεση επιτυχής!'); 
         
         if (response.role === 'SHOP') {
-          this.router.navigate(['/shop-admin']);
+          this.router.navigate(['/store-inventory']);
         } else {
           this.cartService.getCart(this.authService.getUser()?.afm).subscribe({
             next: () => {

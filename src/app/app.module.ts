@@ -19,6 +19,8 @@ import { CartFabComponent } from './components/citizen/cart-fab/cart-fab.compone
 import { PaymentDialogComponent } from './components/citizen/payment-dialog/payment-dialog.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { ProductFilterComponent } from './components/citizen/product-filter/product-filter.component';
+import { InventoryComponent } from './components/store/inventory/inventory.component';
+import { ProductDialogComponent } from './components/store/product-dialog/product-dialog.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,9 @@ import { ProductFilterComponent } from './components/citizen/product-filter/prod
     CartDialogComponent,
     CartFabComponent,
     PaymentDialogComponent,
-    ProductFilterComponent
+    ProductFilterComponent,
+    InventoryComponent,
+    ProductDialogComponent
   ],
   imports: [
     BrowserModule,

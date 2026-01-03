@@ -27,9 +27,9 @@ export class ProductListComponent implements OnInit {
 
   loadInitialProducts() {
     this.productService.getAllProducts().subscribe({
-      next: (response) => {
-        this.products = response.data;
-        this.allProductsForFilter = [...response.data]; 
+      next: (response) => {        
+        this.products = response.data.filter((p: any) => p.active === true);
+        this.allProductsForFilter = [...this.products];
       },
       error: (err) => {
         this.notify.showError('Σφάλμα: ' + (err.error?.message || 'κατά τη φόρτωση των προϊόντων')); 
@@ -41,7 +41,7 @@ export class ProductListComponent implements OnInit {
     this.isLoading = true
     this.productService.getFilteredProducts(filters).subscribe({
       next: (response) => {
-        this.products = response.data;
+        this.products = response.data.filter((p: any) => p.active === true);
         setTimeout(() => {          
           this.isLoading = false;
         }, 300);

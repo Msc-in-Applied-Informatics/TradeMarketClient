@@ -1,0 +1,45 @@
+<h2 mat-dialog-title>
+  <mat-icon>{{ isEditMode ? 'edit' : 'add_shopping_cart' }}</mat-icon>
+  {{ isEditMode ? 'Επεξεργασία Προϊόντος' : 'Προσθήκη Νέου Προϊόντος' }}
+</h2>
+
+<mat-dialog-content [formGroup]="productForm" class="dialog-form">
+  
+  <mat-form-field appearance="outline">
+    <mat-label>Μάρκα (Brand)</mat-label>
+    <input matInput formControlName="brand">
+    <mat-icon matPrefix>branding_watermark</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Τύπος / Μοντέλο</mat-label>
+    <input matInput formControlName="type">
+    <mat-icon matPrefix>category</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Αναλυτική Περιγραφή</mat-label>
+    <textarea matInput formControlName="description" rows="4"></textarea>
+    <mat-icon matPrefix>description</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Τιμή Πώλησης (€)</mat-label>
+    <input matInput type="number" formControlName="price">
+    <mat-icon matPrefix>payments</mat-icon>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Τρέχον Απόθεμα</mat-label>
+    <input matInput type="number" formControlName="stock">
+    <mat-icon matPrefix>inventory_2</mat-icon>
+  </mat-form-field>
+
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button (click)="onCancel()" color="warn">ΑΚΥΡΩΣΗ</button>
+  <button mat-raised-button color="primary" (click)="onSave()" [disabled]="productForm.invalid">
+    {{ isEditMode ? 'ΕΝΗΜΕΡΩΣΗ ΣΤΟΙΧΕΙΩΝ' : 'ΚΑΤΑΧΩΡΗΣΗ ΠΡΟΪΟΝΤΟΣ' }}
+  </button>
+</mat-dialog-actions>

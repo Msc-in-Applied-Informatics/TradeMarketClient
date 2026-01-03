@@ -1,22 +1,27 @@
 <mat-toolbar color="primary" class="main-navbar">
   <div class="nav-container">
     
-    <div class="logo-section" routerLink="/products">
+    <div class="logo-section" [routerLink]="(authService.user$ | async)?.role === 'SHOP' ? '/store-inventory' : '/products'">
       <img src="assets/images/mini-logo.png" alt="TradeMarket Logo" class="logo-img">
     </div>
 
     <span class="spacer"></span>
 
-    <div class="nav-links">
-      <button mat-button routerLink="/products">
-        <mat-icon>store</mat-icon> Προϊόντα
+    <div class="nav-links" *ngIf="authService.user$ | async as user">
+      
+      <button mat-button routerLink="/products" *ngIf="user.role === 'CITIZEN'">
+        <mat-icon>shopping_basket</mat-icon> Προϊόντα
+      </button>
+
+      <button mat-button routerLink="/store-inventory" *ngIf="user.role === 'SHOP'">
+        <mat-icon>inventory</mat-icon> My Store
       </button>
 
       <div class="profile-info">
-        <span class="user-name">{{ displayName }}</span>
+        <span class="user-name">{{ user.name }}</span>
         
-        <mat-icon class="role-icon" [matTooltip]="userRole === 'SHOP' ? 'Κατάστημα' : 'Πολίτης'">
-          {{ userRole === 'SHOP' ? 'storefront' : 'person' }}
+        <mat-icon class="role-icon" [matTooltip]="user.role === 'SHOP' ? 'Κατάστημα' : 'Πολίτης'">
+          {{ user.role === 'SHOP' ? 'storefront' : 'person' }}
         </mat-icon>
       </div>
 
@@ -24,6 +29,5 @@
         <mat-icon>logout</mat-icon>
       </button>
     </div>
-
   </div>
 </mat-toolbar>
