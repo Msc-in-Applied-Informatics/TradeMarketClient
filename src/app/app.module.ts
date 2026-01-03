@@ -19,7 +19,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { ProductFilterComponent } from './components/citizen/product-filter/product-filter.component';
 import { InventoryComponent } from './components/store/inventory/inventory.component';
 import { ProductDialogComponent } from './components/store/product-dialog/product-dialog.component';
-import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { ProductDetailsComponent } from './components/citizen/product-details/product-details.component';
 
 @NgModule({
   declarations: [
