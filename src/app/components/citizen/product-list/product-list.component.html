@@ -22,7 +22,7 @@
   </div>
 
   <div class="product-grid" *ngIf="products.length > 0">
-    <mat-card class="product-card" *ngFor="let product of products">
+    <mat-card class="product-card" *ngFor="let product of products" >
       <div class="product-icon-container">
         <mat-icon>inventory_2</mat-icon>
       </div>
@@ -50,6 +50,9 @@
                 (click)="addToCart(product)" 
                 [disabled]="product.stock === 0">
           <mat-icon>shopping_cart</mat-icon> {{ product.stock === 0 ? 'Μη Διαθέσιμο' : 'Καλάθι' }}
+        </button>
+        <button style="margin-left: 5px" mat-button color="primary" [routerLink]="['/product-details', product.id]">
+          ΛΕΠΤΟΜΕΡΕΙΕΣ
         </button>
       </mat-card-actions>
     </mat-card>

@@ -11,6 +11,7 @@ import { ProductService } from 'src/app/services/product/product.service';
 })
 export class ProductListComponent implements OnInit {
 
+
   products: Product[] = []; 
   allProductsForFilter: Product[] = []; 
   isLoading = false;

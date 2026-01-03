@@ -40,6 +40,10 @@ export class ProductService {
     return this.http.get<Product[]>(`${this.apiUrl}/product/getProducts/${shopAfm}`);
   }
 
+  getProductById(id: number): Observable<any> {
+    return this.http.get(`${this.apiUrl}/product/getProduct/${id}`);
+  }
+
   deleteProduct(product: Product, shopAfm: string): Observable<any> {
     const params = {
       "id": product.id,

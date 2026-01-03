@@ -3,17 +3,33 @@ import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { ProductListComponent } from './components/citizen/product-list/product-list.component';
-import { authGuard } from './guards/auth.guard';
 import { InventoryComponent } from './components/store/inventory/inventory.component';
+import { ProductDetailsComponent } from './components/product-details/product-details.component';
+import { authGuard } from './guards/auth.guard';
+import { guestGuard } from './guards/guest.guard';
 
 const routes: Routes = [
-  { path: 'register', component: RegisterComponent },
-  { path: 'login', component: LoginComponent },
-{ 
+  {
+    path: 'register',
+    component: RegisterComponent,
+    canActivate: [guestGuard]
+  },
+  {
+    path: 'login',
+    component: LoginComponent,
+    canActivate: [guestGuard]
+  },
+  { 
     path: 'products', 
     component: ProductListComponent, 
     canActivate: [authGuard],
     data: { role: 'CITIZEN' }  
+  },
+  {
+    path: 'product-details/:id',
+    component: ProductDetailsComponent,
+    canActivate: [authGuard],
+    data: { role: 'CITIZEN' } 
   },
   {
     path: 'store-inventory',
@@ -21,7 +37,8 @@ const routes: Routes = [
     canActivate: [authGuard],
     data: { role: 'SHOP' }  
   },
-  { path: '', redirectTo: '/login', pathMatch: 'full' }
+  { path: '', redirectTo: '/products', pathMatch: 'full' },
+  { path: '**', redirectTo: '/products' }
 ];
 
 @NgModule({

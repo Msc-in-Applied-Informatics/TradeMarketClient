@@ -10,6 +10,9 @@ import { Product } from 'src/app/models/models';
 export class CartService {
   private apiUrl = 'http://localhost:8080';
 
+  private cartItemsSubject = new BehaviorSubject<any[]>([]);
+  cartItems$ = this.cartItemsSubject.asObservable();
+
   private cartCountSubject = new BehaviorSubject<number>(0);
   cartCount$ = this.cartCountSubject.asObservable();
   
@@ -28,9 +31,11 @@ export class CartService {
     return this.http.get(`${this.apiUrl}/cart/my-cart/${afm}`).pipe(
       tap((res: any) => {
         if (res && res.data && res.data.products) {
+          this.cartItemsSubject.next(res.data.products);
           const count = res.data.products.length;
           this.updateCount(count); 
         } else {
+          this.cartItemsSubject.next([]);
           this.clearCartState();
         }
       })

@@ -180,6 +180,21 @@
   }
 }
 
+.product-card {
+  cursor: pointer; 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-4px); 
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2) !important; 
+  }
+
+  mat-card-actions {
+    cursor: default;
+    button { cursor: pointer; }
+  }
+}
+
 @keyframes fadeInDown {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }

@@ -1,0 +1,75 @@
+<div class="container">
+  <button mat-button color="primary" (click)="goBack()" class="back-btn">
+    <mat-icon>arrow_back</mat-icon> Πίσω στα Προϊόντα
+  </button>
+
+  <div class="loading-container" *ngIf="isLoading">
+    <mat-progress-spinner mode="indeterminate" color="primary"></mat-progress-spinner>
+  </div>
+
+  <mat-card class="details-card" *ngIf="!isLoading && product">
+    <div class="details-grid">
+      
+      <div class="image-section">
+        <mat-icon class="main-icon">inventory_2</mat-icon>
+        <div class="status-badge" [class.out-of-stock]="product.stock === 0">
+          {{ product.stock > 0 ? 'ΣΕ ΑΠΟΘΕΜΑ' : 'ΕΞΑΝΤΛΗΘΗΚΕ' }}
+        </div>
+      </div>
+
+      <div class="info-section">
+        <div class="header">
+          <span class="brand">{{ product.brand }}</span>
+          <h1>{{ product.type }}</h1>
+          <div class="price-box">{{ product.price | number:'1.2-2' }} €</div>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="content">
+          <h3>Περιγραφή</h3>
+          <p>{{ product.description || 'Δεν υπάρχει διαθέσιμη περιγραφή για το συγκεκριμένο προϊόν.' }}</p>
+          
+          <div class="meta-info">
+            <div class="meta-item">
+              <mat-icon>store</mat-icon>
+              <span>Κατάστημα: <strong>{{ product.shopName }}</strong></span>
+            </div>
+            <div class="meta-item">
+              <mat-icon>inventory</mat-icon>
+              <span>Διαθέσιμα τεμάχια: <strong>{{ product.stock }}</strong></span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="actions">
+        <button mat-raised-button color="warn" class="main-add"
+                *ngIf="currentQty === 0"
+                (click)="addToCart()"
+                [disabled]="product.stock === 0">
+            <mat-icon>add_shopping_cart</mat-icon> ΠΡΟΣΘΗΚΗ ΣΤΟ ΚΑΛΑΘΙ
+        </button>
+
+        <div class="quantity-wrapper" *ngIf="currentQty > 0">
+            <span class="label">Στο καλάθι σας</span>
+            <div class="selector">
+            <button mat-mini-fab color="warn" (click)="removeFromCart()">
+                <mat-icon>remove</mat-icon>
+            </button>
+            
+            <span class="qty">{{ currentQty }}</span>
+            
+            <button mat-mini-fab class="btn-success" 
+                    (click)="addToCart()" 
+                    [disabled]="currentQty >= product.stock">
+                <mat-icon>add</mat-icon>
+            </button>
+            </div>
+            <div class="total-cost">Σύνολο: {{ (currentQty * product.price) | number:'1.2-2' }} €</div>
+        </div>
+        </div>
+      </div>
+
+    </div>
+  </mat-card>
+</div>
