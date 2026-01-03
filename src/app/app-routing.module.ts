@@ -7,7 +7,7 @@ import { InventoryComponent } from './components/store/inventory/inventory.compo
 import { ProductDetailsComponent } from './components/citizen/product-details/product-details.component';
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
-import { HistoryComponent } from './components/history/history.component';
+import { HistoryComponent } from './components/citizen/history/history.component';
 
 const routes: Routes = [
   {
