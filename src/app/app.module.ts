@@ -8,8 +8,6 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { ProductListComponent } from './components/citizen/product-list/product-list.component';
-import { DashboardComponent } from './components/store/dashboard/dashboard.component';
-import { AddProductComponent } from './components/store/add-product/add-product.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { MaterialModule } from './material.module';
@@ -29,8 +27,6 @@ import { ProductDialogComponent } from './components/store/product-dialog/produc
     RegisterComponent,
     NavbarComponent,
     ProductListComponent,
-    DashboardComponent,
-    AddProductComponent,
     CartDialogComponent,
     CartFabComponent,
     PaymentDialogComponent,
