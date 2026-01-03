@@ -57,12 +57,14 @@ export class ProductDetailsComponent implements OnInit {
   addToCart() {
     this.cartService.addToCart(this.product).subscribe(() => {
       this.refreshCart();
+      this.cartService.increaseCount();   
     });
   }
 
   removeFromCart() {
     this.cartService.removeFromCart(this.product).subscribe(() => {
       this.refreshCart();
+      this.cartService.decreaseCount();
     });
   }
 
