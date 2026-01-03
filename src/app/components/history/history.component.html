@@ -1,0 +1,76 @@
+<div class="history-container">
+  <mat-card class="main-card">
+    <mat-card-header>
+      <mat-card-title>Ιστορικό Παραγγελιών</mat-card-title>
+      <mat-card-subtitle>Δείτε αναλυτικά τις αγορές σας ανά κατάστημα</mat-card-subtitle>
+    </mat-card-header>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" multiTemplateDataRows class="mat-elevation-z0">
+        
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let element"> <span class="order-id">#{{element.id}}</span> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="orderDate">
+          <th mat-header-cell *matHeaderCellDef> Ημερομηνία </th>
+          <td mat-cell *matCellDef="let element"> {{element.orderDate | date:'dd MMM yyyy, HH:mm'}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="totalAmount">
+          <th mat-header-cell *matHeaderCellDef> Σύνολο </th>
+          <td mat-cell *matCellDef="let element" class="total-cell"> {{element.totalAmount | number:'1.2-2'}} € </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expand">
+          <th mat-header-cell *matHeaderCellDef>&nbsp;</th>
+          <td mat-cell *matCellDef="let element">
+            <button mat-icon-button>
+                <mat-icon>{{expandedElement === element ? 'expand_less' : 'expand_more'}}</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="expandedDetail">
+          <td mat-cell *matCellDef="let element" [attr.colspan]="columnsToDisplay.length">
+            <div class="order-detail-wrapper" [@detailExpand]="element === expandedElement ? 'expanded' : 'collapsed'">
+              <div class="inner-items-card">
+                <div class="item-row header">
+                  <span class="col-prod">Περιγραφή Προϊόντος</span>
+                  <span class="col-shop">Κατάστημα</span>
+                  <span class="col-price">Τιμή</span>
+                </div>
+                
+                <div *ngFor="let item of element.items" class="item-row data-row">
+                  <div class="col-prod">
+                    <span class="brand-name">{{item.product.brand}}</span>
+                    <span class="product-desc">{{item.product.description}}</span>
+                  </div>
+                  <div class="col-shop">
+                    <mat-icon>storefront</mat-icon>
+                    <span>{{item.shop.name}}</span>
+                  </div>
+                  <div class="col-price">{{item.priceAtPurchase | number:'1.2-2'}} €</div>
+                </div>
+              </div>
+            </div>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="columnsToDisplay"></tr>
+        <tr mat-row *matRowDef="let element; columns: columnsToDisplay;"
+            class="parent-row"
+            [class.expanded-row]="expandedElement === element"
+            (click)="expandedElement = expandedElement === element ? null : element">
+        </tr>
+        <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="detail-row"></tr>
+      </table>
+    </div>
+
+    <div *ngIf="dataSource.length === 0" class="empty-state">
+      <mat-icon>shopping_basket</mat-icon>
+      <p>Δεν έχετε πραγματοποιήσει ακόμα κάποια αγορά.</p>
+    </div>
+  </mat-card>
+</div>

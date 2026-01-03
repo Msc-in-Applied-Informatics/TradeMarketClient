@@ -8,6 +8,14 @@
     <span class="spacer"></span>
 
     <div class="nav-links" *ngIf="authService.user$ | async as user">
+
+      <button mat-button routerLink="/history" *ngIf="user?.role === 'CITIZEN'">
+        <mat-icon>history</mat-icon> Παραγγελίες
+      </button>
+
+      <button mat-button routerLink="/sales" *ngIf="user?.role === 'SHOP'">
+        <mat-icon>trending_up</mat-icon> Πωλήσεις
+      </button>
       
       <button mat-button routerLink="/products" *ngIf="user.role === 'CITIZEN'">
         <mat-icon>shopping_basket</mat-icon> Προϊόντα

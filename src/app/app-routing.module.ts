@@ -7,6 +7,7 @@ import { InventoryComponent } from './components/store/inventory/inventory.compo
 import { ProductDetailsComponent } from './components/citizen/product-details/product-details.component';
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
+import { HistoryComponent } from './components/history/history.component';
 
 const routes: Routes = [
   {
@@ -36,6 +37,18 @@ const routes: Routes = [
     component: InventoryComponent,
     canActivate: [authGuard],
     data: { role: 'SHOP' }  
+  },
+  { 
+    path: 'history', 
+    component: HistoryComponent, 
+    canActivate: [authGuard],
+    data: { role: 'CITIZEN' } 
+  },
+  { 
+    path: 'sales', 
+    component: HistoryComponent, 
+    canActivate: [authGuard],
+    data: { role: 'SHOP' } 
   },
   { path: '', redirectTo: '/products', pathMatch: 'full' },
   { path: '**', redirectTo: '/products' }

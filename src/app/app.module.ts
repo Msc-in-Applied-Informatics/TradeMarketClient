@@ -20,6 +20,7 @@ import { ProductFilterComponent } from './components/citizen/product-filter/prod
 import { InventoryComponent } from './components/store/inventory/inventory.component';
 import { ProductDialogComponent } from './components/store/product-dialog/product-dialog.component';
 import { ProductDetailsComponent } from './components/citizen/product-details/product-details.component';
+import { HistoryComponent } from './components/history/history.component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { ProductDetailsComponent } from './components/citizen/product-details/pr
     ProductFilterComponent,
     InventoryComponent,
     ProductDialogComponent,
-    ProductDetailsComponent
+    ProductDetailsComponent,
+    HistoryComponent
   ],
   imports: [
     BrowserModule,
