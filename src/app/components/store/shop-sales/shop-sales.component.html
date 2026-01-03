@@ -1,0 +1,72 @@
+<div class="sales-container">
+  <div class="summary-widgets">
+    <mat-card class="widget revenue">
+      <mat-icon>payments</mat-icon>
+      <div class="widget-content">
+        <span class="label">Συνολικά Έσοδα</span>
+        <span class="value">{{totalRevenue | number:'1.2-2'}} €</span>
+      </div>
+    </mat-card>
+    
+    <mat-card class="widget count">
+      <mat-icon>inventory_2</mat-icon>
+      <div class="widget-content">
+        <span class="label">Είδη που Πουλήθηκαν</span>
+        <span class="value">{{dataSource.length}}</span>
+      </div>
+    </mat-card>
+  </div>
+
+  <mat-card class="table-card">
+    <mat-card-header>
+      <mat-card-title>Αρχείο Πωλήσεων</mat-card-title>
+    </mat-card-header>
+
+    <div class="table-responsive">
+      <table mat-table [dataSource]="dataSource" class="mat-elevation-z0">
+        
+        <ng-container matColumnDef="id">
+          <th mat-header-cell *matHeaderCellDef> ID </th>
+          <td mat-cell *matCellDef="let sale"> <span class="id-badge">#{{sale.id}}</span> </td>
+        </ng-container>
+
+        <ng-container matColumnDef="type">
+          <th mat-header-cell *matHeaderCellDef> Κατηγορία </th>
+          <td mat-cell *matCellDef="let sale"> {{sale.productType}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="product">
+          <th mat-header-cell *matHeaderCellDef> Προϊόν </th>
+          <td mat-cell *matCellDef="let sale"> {{sale.productName}} </td>
+        </ng-container>
+
+        <ng-container matColumnDef="customer">
+            <th mat-header-cell *matHeaderCellDef> Πελάτης </th>
+            <td mat-cell *matCellDef="let sale"> 
+                <div style="display: flex; flex-direction: column;">
+                <span style="font-weight: 500;">{{sale.customerName}}</span>
+                <small style="color: #666;">ΑΦΜ: {{sale.customerAfm}}</small>
+                </div>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="revenue">
+          <th mat-header-cell *matHeaderCellDef> Τιμή Πώλησης </th>
+          <td mat-cell *matCellDef="let sale" class="revenue-cell"> {{sale.revenue | number:'1.2-2'}} € </td>
+        </ng-container>
+
+        <ng-container matColumnDef="stock">
+          <th mat-header-cell *matHeaderCellDef> Διαθέσιμο Απόθεμα </th>
+          <td mat-cell *matCellDef="let sale"> 
+            <span [class.out-of-stock]="sale.stockLeft === 0">
+                {{sale.stockLeft}} τμχ.
+            </span>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="sale-row"></tr>
+      </table>
+    </div>
+  </mat-card>
+</div>

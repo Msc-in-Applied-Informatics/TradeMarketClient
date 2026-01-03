@@ -29,3 +29,11 @@ export interface Cart {
   products: Product[];
   totalPrice: number;
 }
+
+export interface SaleRecord {
+  id: number;
+  productName: string;
+  productType: string;
+  revenue: number;
+  stockLeft: number;
+}

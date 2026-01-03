@@ -8,6 +8,7 @@ import { ProductDetailsComponent } from './components/citizen/product-details/pr
 import { authGuard } from './guards/auth.guard';
 import { guestGuard } from './guards/guest.guard';
 import { HistoryComponent } from './components/citizen/history/history.component';
+import { ShopSalesComponent } from './components/store/shop-sales/shop-sales.component';
 
 const routes: Routes = [
   {
@@ -46,7 +47,7 @@ const routes: Routes = [
   },
   { 
     path: 'sales', 
-    component: HistoryComponent, 
+    component: ShopSalesComponent, 
     canActivate: [authGuard],
     data: { role: 'SHOP' } 
   },

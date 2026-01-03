@@ -26,7 +26,7 @@
       </button>
 
       <div class="profile-info">
-        <span class="user-name">{{ user.name }}</span>
+        <span class="user-name">{{ user.name }} ({{ user.afm }})</span>
         
         <mat-icon class="role-icon" [matTooltip]="user.role === 'SHOP' ? 'Κατάστημα' : 'Πολίτης'">
           {{ user.role === 'SHOP' ? 'storefront' : 'person' }}

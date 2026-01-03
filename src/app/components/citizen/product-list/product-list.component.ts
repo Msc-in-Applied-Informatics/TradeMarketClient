@@ -10,8 +10,6 @@ import { ProductService } from 'src/app/services/product/product.service';
   styleUrls: ['./product-list.component.less']
 })
 export class ProductListComponent implements OnInit {
-
-
   products: Product[] = []; 
   allProductsForFilter: Product[] = []; 
   isLoading = false;

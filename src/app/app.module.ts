@@ -21,6 +21,7 @@ import { InventoryComponent } from './components/store/inventory/inventory.compo
 import { ProductDialogComponent } from './components/store/product-dialog/product-dialog.component';
 import { ProductDetailsComponent } from './components/citizen/product-details/product-details.component';
 import { HistoryComponent } from './components/citizen/history/history.component';
+import { ShopSalesComponent } from './components/store/shop-sales/shop-sales.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { HistoryComponent } from './components/citizen/history/history.component
     InventoryComponent,
     ProductDialogComponent,
     ProductDetailsComponent,
-    HistoryComponent
+    HistoryComponent,
+    ShopSalesComponent
   ],
   imports: [
     BrowserModule,
