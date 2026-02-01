@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  // Η διεύθυνση του Spring Boot API σου
-  private baseUrl = 'http://localhost:8080';
+  private baseUrl = environment.apiUrl;
   private loggedIn = new BehaviorSubject<boolean>(this.checkToken());
   private userSubject = new BehaviorSubject<any>(JSON.parse(localStorage.getItem('currentUser') || '{}'));
   user$ = this.userSubject.asObservable();
